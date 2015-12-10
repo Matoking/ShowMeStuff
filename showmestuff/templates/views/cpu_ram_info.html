@@ -1,0 +1,29 @@
+<script src="{{ url_for('static', filename='js/views/cpu_ram_info.js') }}"></script>
+{% raw %}
+<script id="systeminfo_cpu_ram" type="text/html">
+<div class="col-sm-8">
+	<div class="page-header">
+		<h3>CPU</h3>
+	</div>
+	{{#cpus}}
+	<div class="col-sm-4">
+		CPU #{{id}}
+		<div class="progress">
+			<div id="cpu_{{id}}_progress" class="progress-bar-label progress-bar progress-bar-{{state}} text-outline" role="progressbar" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100" style="padding-left: 5px; width: {{percent}}%; text-align: left; font-weight: bold;">{{percent}}%</div>
+		</div>
+	</div>
+	{{/cpus}}
+</div>
+<div class="col-sm-4">
+	{{#ram}}
+	<div class="page-header">
+		<h3>RAM</h3>
+	</div>
+	RAM: <span id="vm_used_hm">{{vm_used_hm}}</span> / <span id="vm_total_hm">{{vm_total_hm}}</span>
+	<div class="progress">
+		<div id="vm_usage_progress" class="progress-bar-label progress-bar progress-bar-{{vm_state}} text-outline" role="progressbar" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{vm_percent}}%;">{{vm_percent}}%</div>
+	</div>
+	{{/ram}}
+</div>
+</script>
+{% endraw %}

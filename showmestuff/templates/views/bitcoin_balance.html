@@ -1,0 +1,61 @@
+<script>
+if (typeof bitcoinBalance === 'undefined') {
+	bitcoinBalance = {};
+}
+
+bitcoinBalance[viewId] = {
+	"address": "{{view_config.address}}",
+	"label": "{% if "label" in view_config %}{{view_config.label}}{% else %}{{view_config.address}}{% endif %}"
+};
+</script>
+<script src="{{ url_for('static', filename='js/views/bitcoin_balance.js') }}"></script>
+{% raw %}
+<script id="bitcoin_balance" type="text/html">
+<br>
+	<div class="col-sm-12">
+		<h3>{{bitcoin_address_label}}</h3>
+	</div>
+	<div class="col-sm-6">
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>Address</td>
+					<td>{{bitcoin_address}}</td>
+				</tr>
+				<tr>
+					<td>Number of transactions</td>
+					<td><b>{{transaction_count}}</b></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-sm-6">
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>Total received</td>
+					<td><b>{{total_received}}</b></td>
+				</tr>
+				<tr>
+					<td>Total sent</td>
+					<td><b>{{total_sent}}</b></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-sm-12">
+	<h3>Recent transactions</h3>
+	<table class="table">
+		<tbody>
+			{{#recent_txs}}
+			<tr>
+				<td>{{time}}</td>
+				<td>{{hash}}</td>
+				<td>{{#if receive}}<b style="color: green;">{{amount}}</b>{{else}}<b style="color: red;">{{amount}}</b>{{/if}}</td>
+			</tr>
+			{{/recent_txs}}
+		</tbody>
+	</table>
+	</div>
+</script>
+{% endraw %}

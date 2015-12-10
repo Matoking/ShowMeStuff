@@ -1,0 +1,19 @@
+<script src="{{ url_for('static', filename='js/views/disk_usage.js') }}"></script>
+{% raw %}
+<script id="systeminfo_disk_usage" type="text/html">
+	<br>
+	{{#disks_template}}
+	<div class="col-sm-12">
+		{{#each this}}
+		<div class="col-sm-4">
+			<span style="color: gray;">{{device}}</span><br>
+			<b>{{mountpoint}}: </b><span id="{{disk_id}}_used_hm">{{used_hm}}</span> / <span id="{{disk_id}}_total_hm">{{total_hm}}</span><br>
+			<div class="progress">
+				<div id="disk_{{disk_id}}_progress" class="progress-bar-label progress-bar progress-bar-{{state}}" role="progressbar" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{percent}}%;">{{percent}}%</div>
+			</div>
+		</div>
+		{{/each}}
+	</div>
+	{{/disks_template}}
+</script>
+{% endraw %}

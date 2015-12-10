@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+body {
+	height: {{config.VIEW_HEIGHT}}px;
+	overflow: hidden;
+}
+</style>
+<div class="titlebar">
+	<span class="titlebar-center"><b id="titlebar_view_title" class="titlebar-view-title"></b></span>
+	<b id="titlebar_time" class="titlebar-time">10:10</b>
+</div>
+
+<div style="display: none;" class="view-control-panel" id="view_control_panel">
+	<a href="#" onclick="show.gotoPreviousView()" class="view-control-button" type="button" class="btn btn-link"><span class="glyphicon glyphicon-step-backward"></span></a>
+	<a id="autoplay_button" href="#" onclick="show.toggleAutoPlay()" class="view-control-button" type="button" class="btn btn-link"><span class="glyphicon glyphicon-pause"></span></a>
+	<a href="#" onclick="show.gotoNextView()" class="view-control-button" type="button" class="btn btn-link"><span class="glyphicon glyphicon-step-forward"></span></a>
+	<a style="padding-right: 10px;" href="#" onclick="show.refreshPage()" class="pull-right view-control-button" type="button" class="btn btn-link"><span class="glyphicon glyphicon-refresh"></span></a>
+</div>
+
+<div class="container-fluid">
+	<div id="content" class="row">
+	</div>
+</div>
+{% endblock %}
+
+{% block body_tag %}
+<body onclick="show.showPanel()">
+{% endblock %}

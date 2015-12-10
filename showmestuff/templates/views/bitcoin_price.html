@@ -1,0 +1,24 @@
+<script>
+if (typeof bitcoinPrice === 'undefined') {
+	bitcoinPrice = {};
+}
+
+bitcoinPrice[viewId] = {
+	"api": "{{ view_config.api }}"
+};
+</script>
+<script src="{{ url_for('static', filename='js/dygraph-combined.js') }}"></script>
+<script src="{{ url_for('static', filename='js/views/bitcoin_price.js') }}"></script>
+{% raw %}
+<script id="bitcoin_price" type="text/html">
+<br>
+<div class="col-sm-8">
+	<div style="width: 100%; height: {% endraw %}{{ config.VIEW_HEIGHT - 50 }}{% raw %}"  id="chart"></div>
+</div>
+<div style="text-align: center;" class="col-sm-4">
+	<h1 style="font-size: 52px;" id="last_text">{{last_text}}</h1>
+	<h4>Ask: <span id="ask_text">{{ask_text}}</span> | Bid: <span id="bid_text">{{bid_text}}</span></h4>
+	<h5 id="source_text" class="text-muted">{{source_text}}</h5>
+</div>
+</script>
+{% endraw %}

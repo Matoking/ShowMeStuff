@@ -1,0 +1,15 @@
+<script>
+tailFile = "{{view_config.file}}";
+tailTitle = "{% if view_config.title %}{{view_config.title}}{% else %}{{ view_config.file }}{% endif %}";
+tailFontSize = {% if view_config.font_size %}{{ view_config.font_size }}{% else %}12{% endif %};
+</script>
+<script src="{{ url_for('static', filename='js/views/tail.js') }}"></script>
+{% raw %}
+<script id="tail" type="text/html">
+<div class="col-sm-12">
+	<pre id="tail_text" style="{% endraw %}color: {{ config.TEXT_COLOR }}; position: absolute; left: 0px; top: 0px; font-family: monospace; border: none; background-color: transparent; font-size: 12px; max-height: {{ config.VIEW_HEIGHT - 50 }}px; max-width: {{ config.VIEW_WIDTH }}px;{% raw %} overflow: hidden; white-space: pre-wrap; word-wrap: break-word;">{{text}}</pre>
+</div>
+<a id="increase_size" href="#" style="padding-left: 10px; display: none;" class="view-control-button" type="button" class="btn btn-link"><span class="glyphicon glyphicon-plus"></span></a>
+<a id="decrease_size" href="#" style="display: none;" class="view-control-button" type="button" class="btn btn-link"><span class="glyphicon glyphicon-minus"></span></a>
+</script>
+{% endraw %}

@@ -1,0 +1,36 @@
+<script>
+if (typeof uptimeSites === 'undefined') {
+	uptimeSites = {};
+};
+
+{% if "sites" in view_config %}
+uptimeSites[viewId] = [];
+	{% for site in view_config["sites"] %}
+	uptimeSites[viewId].push({"name": "{{site.name}}",
+					  		   "url": "{{site.url}}"})	
+	{% endfor %}
+{% else %}
+uptimeSites[viewId] = []; // none
+{% endif %}
+</script>
+<script src="{{ url_for('static', filename='js/views/uptime.js') }}"></script>
+{% raw %}
+<script id="uptime" type="text/html">
+<div class="col-sm-12">
+	<br>
+	{{#each sites}}
+	<div class="col-sm-4">
+		<h3>{{name}}</h3>
+		<h4>Status: <b style="color: {{state_color}};">{{state}}</b></h4>
+		{{#if checked }}
+			{{#if success}}
+			Response time: <b>{{elapsed}} ms</b>
+			{{else}}
+			<span style="color: red;">Down since <b>{{downtime}}</b></span>
+			{{/if}}
+		{{/if}}
+	</div>
+	{{/each}}
+</div>
+</script>
+{% endraw %}
