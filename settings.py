@@ -1,3 +1,5 @@
+import datetime
+
 # ShowMeStuff configuration file
 
 # Check settings.example.py for more details
@@ -18,13 +20,19 @@ VIEWS = [
     }},
     {"name": "bitcoin_price",
      "config": {
-        "api": "bitstamp_usd"
+        "api": "bitstamp_usd",
+        "timespan": datetime.timedelta(days=7)
     }},
     {"name": "cpu_ram_info"},
     {"name": "disk_usage"},
+    {"name": "bitcoin_balance",
+     "config": {
+        "address": "12T6LCaHz6YLpRZDuSMAF7DNHrQZW6Lv2f",
+        "label": "BitBin earnings"
+    }},
     {"name": "tail",
      "config": {
-        "title": "Kernel log",
-        "file": "/var/log/kern.log",
-    }},
+        "title": "Bitcoin log",
+        "file": "/media/odroid/hdd/bitcoin_data/debug.log"
+    }}
 ]

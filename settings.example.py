@@ -1,3 +1,5 @@
+import datetime
+
 # ShowMeStuff configuration file
 
 # Height and width of the area ShowMeStuff should be displayed on
@@ -25,10 +27,11 @@ VIEWS = [
     # price during the last 24 hours
     #
     # Currently only Bitstamp is supported, and the graph isn't fully populated until
-    # 24 hours worth of price data has been collected
+    # enough price data has been collected
     {"name": "bitcoin_price",
      "config": {
-        "api": "bitstamp_usd"
+        "api": "bitstamp_usd",
+        "timespan": datetime.timedelta(hours=24) # Optional, default value is 24 hours
     }},
     # CPU_RAM_INFO shows realtime CPU and RAM usage
     {"name": "cpu_ram_info"},

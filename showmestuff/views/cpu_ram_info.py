@@ -22,7 +22,8 @@ def get_systeminfo():
     vm_usage = psutil.virtual_memory()
     swap_usage = psutil.swap_memory()
         
-    response["ram"] = {"vm_used": vm_usage.used,
+    response["ram"] = {"vm_cached": vm_usage.buffers + vm_usage.cached,
+                       "vm_used": vm_usage.used - vm_usage.buffers - vm_usage.cached,
                        "vm_total": vm_usage.total,
                        
                        "swap_used": swap_usage.used,

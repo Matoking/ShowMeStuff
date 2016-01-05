@@ -21,7 +21,8 @@
 	</div>
 	RAM: <span id="vm_used_hm">{{vm_used_hm}}</span> / <span id="vm_total_hm">{{vm_total_hm}}</span>
 	<div class="progress">
-		<div id="vm_usage_progress" class="progress-bar-label progress-bar progress-bar-{{vm_state}} text-outline" role="progressbar" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{vm_percent}}%;">{{vm_percent}}%</div>
+		<div id="vm_usage_progress" class="progress-bar-label progress-bar progress-bar-{{vm_state}} text-outline" role="progressbar" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{vm_used_percent}}%;">{{vm_used_percent}}%</div>
+		<div id="vm_cached_progress" class="progress-bar-label progress-bar progress-bar-info" role="progressbar" style="width: {{vm_cached_percent}}%;"></div>
 	</div>
 	{{/ram}}
 </div>

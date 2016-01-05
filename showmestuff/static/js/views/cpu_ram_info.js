@@ -37,14 +37,16 @@
 											.attr("class", "progress-bar-label progress-bar progress-bar-" + state);
 			}
 			
-			var percent = cpu_ram_info.data["ram"]["vm_percent"];
+			var used_percent = cpu_ram_info.data["ram"]["vm_used_percent"];
+			var cached_percent = cpu_ram_info.data["ram"]["vm_cached_percent"];
 			var state = cpu_ram_info.data["ram"]["vm_state"];
 			
 			var used = cpu_ram_info.data["ram"]["vm_used_hm"];
 			var total = cpu_ram_info.data["ram"]["vm_total_hm"];
 			
-			$("#vm_usage_progress").css("width", percent + "%").html(percent + "%")
+			$("#vm_usage_progress").css("width", used_percent + "%").html(used_percent + "%")
 								   .attr("class", "progress-bar-label progress-bar progress-bar-" + state);
+			$("#vm_cached_progress").css("width", cached_percent + "%");
 			
 			$("#vm_used_hm").html(used);
 			$("#vm_total_hm").html(total);
@@ -73,6 +75,7 @@
 				cpu_ram_info.data["ram"]["vm_total_hm"] = Humanize.filesize(cpu_ram_info.data["ram"]["vm_total"]);
 				
 				var vm_used = cpu_ram_info.data["ram"]["vm_used"];
+				var vm_cached = cpu_ram_info.data["ram"]["vm_cached"];
 				var vm_total = cpu_ram_info.data["ram"]["vm_total"];
 				
 				var state = "success";
@@ -86,7 +89,9 @@
 				}
 				
 				cpu_ram_info.data["ram"]["vm_state"] = state;
-				cpu_ram_info.data["ram"]["vm_percent"] = percent;
+				cpu_ram_info.data["ram"]["vm_used_percent"] = percent;
+				
+				cpu_ram_info.data["ram"]["vm_cached_percent"] = parseInt(parseFloat(vm_cached) / parseFloat(vm_total) * 100.0);
 				
 				if (!cpu_ram_info.loaded) {
 					cpu_ram_info.loaded = true;

@@ -12,14 +12,29 @@
 		lastCheck: 0,
 		
 		api: bitcoinPrice[viewId]["api"],
+		timespan: bitcoinPrice[viewId]["timespan"],
 		
 		loaded: false,
 		lastCheck: 0,
 		
 		chart: null,
+		
+		updateInterval: null,
 			
 		create: function() {
 			this.loadView();
+			
+			// Keep updating the price even if the view is not active
+			if (this.updateInterval === null) {
+				this.updateInterval = window.setInterval(function() { bitcoin_price.updatePrice(); }, 5000);
+			}
+		},
+		
+		destroy: function() {
+			if (bitcoin_price.chart !== null) {
+				bitcoin_price.chart.destroy();
+				bitcoin_price.chart = null;
+			}
 		},
 		
 		loadView: function() {
@@ -32,12 +47,17 @@
 		},
 		
 		updateChart: function(forceCreate) {
+			if (!this.active) {
+				return;
+			}
+			
 			forceCreate = typeof forceCreate !== 'undefined' ? forceCreate : false;
 			
 			if (bitcoin_price.chart === null || forceCreate) {
 				var options = {
 					strokeWidth: 3,
-					axisLabelColor: "white",
+					rollPeriod: 10,
+					axisLabelColor: textColor,
 					axes: {
 						x: {
 							axisValueFormatter: function(x) {
@@ -65,7 +85,6 @@
 		},
 		
 		update: function() {
-			bitcoin_price.updatePrice();
 		},
 		
 		updateView: function() {
@@ -82,17 +101,18 @@
 		updatePrice: function() {
 			var currentTime = Date.now();
 			
-			if (this.lastCheck >= currentTime - 5000) {
+			if (bitcoin_price.lastCheck >= currentTime - 5000) {
 				return;
 			}
 			
-			this.lastCheck = currentTime;
+			bitcoin_price.lastCheck = currentTime;
 			
 			$.ajax({
 				dataType: "json",
 				type: "POST",
 				url: "/bitcoin_price",
-				data: {api: this.api},
+				data: {api: bitcoin_price.api,
+					   timespan: bitcoin_price.timespan},
 				success: function(data) {
 					bitcoin_price.data = data;
 					

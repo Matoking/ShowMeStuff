@@ -14,6 +14,7 @@ def get_bitcoin_price():
         response = {}
         
         api = request.form['api']
+        timespan = int(request.form['timespan'])
         
         if api == "bitstamp_usd":
             try:
@@ -27,22 +28,22 @@ def get_bitcoin_price():
             response["bid_text"] = "$%s" % (result["bid"])
             response["source_text"] = "Bitstamp (USD)"
             
-        response["chart_data"] = update_chart(result["last"], api)
+        response["chart_data"] = update_chart(result["last"], api, timespan)
         
         return json.dumps(response)
     else:
         return "error"
     
-def update_chart(price, api):
+def update_chart(price, api, timespan=86400):
     c = get_sqlite_cursor(api)
     
     # Create table if it hasn't been already
     create_table(c)
     
     price = float(price)
-    add_entry(c, price)
+    add_entry(c, price, timespan=timespan)
     
-    return get_entries(c)
+    return get_entries(c, timespan=timespan)
 
 def create_table(c):
     """
@@ -51,11 +52,18 @@ def create_table(c):
     c.execute("""CREATE TABLE IF NOT EXISTS price (price REAL,
                                                    timestamp INTEGER PRIMARY KEY)""")
     
-def add_entry(c, price, interval=5*60, limit=10000):
+def add_entry(c, price, interval=5*60, timespan=86400):
     """
     Adds a new price entry
     """
     timestamp = int(time.time())
+    
+    # Keep at most ~6 months of entries in store, unless user
+    # wants data from a longer period of time
+    limit = 15552000 / interval
+    
+    if timespan / interval >= limit:
+        limit = timespan / interval
     
     result = c.execute("""SELECT * FROM price WHERE timestamp >= ? - ?
                           ORDER BY timestamp DESC

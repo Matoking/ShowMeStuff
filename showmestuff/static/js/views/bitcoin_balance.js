@@ -76,6 +76,7 @@
 						tx["hash"] = tx["hash"].substring(0, 32) + "...";
 					}
 					
+					data["final_balance"] = (parseFloat(data["final_balance"]) / 1e8) + " BTC";
 					data["total_received"] = (parseFloat(data["total_received"]) / 1e8) + " BTC";
 					data["total_sent"] = (parseFloat(data["total_sent"]) / 1e8) + " BTC";
 					

@@ -1,7 +1,7 @@
 # ShowMeStuff
-ShowMeStuff is an application designed for touchscreens that shows different kinds of information at a glance. For example, ShowMeStuff can track the content of chosen log files, the status of different websites, disk usage and display them on screen in realtime.
+ShowMeStuff is a dashboard application designed for touchscreens that shows different kinds of information at a glance. For example, ShowMeStuff can track the content of chosen log files, the status of different websites, disk usage and display them on screen in realtime.
 
-#Â Installation
+# Installation
 You need to have Python and Pip installed in order to run ShowMeStuff. On Debian-based distributions, you can install the required dependencies using the following commands
 sudo apt-get install python python-pip
 sudo pip install -r requirements.txt

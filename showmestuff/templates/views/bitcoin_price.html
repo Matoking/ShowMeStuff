@@ -4,7 +4,8 @@ if (typeof bitcoinPrice === 'undefined') {
 }
 
 bitcoinPrice[viewId] = {
-	"api": "{{ view_config.api }}"
+	"api": "{{ view_config.api }}",
+	"timespan": {% if view_config.timespan %}{{ view_config.timespan.total_seconds() }}{% else %}86400{% endif %}
 };
 </script>
 <script src="{{ url_for('static', filename='js/dygraph-combined.js') }}"></script>

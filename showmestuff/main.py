@@ -11,4 +11,5 @@ def run_app(debug=True):
         except:
             print("Couldn't import %s" % view["name"])
     
-    app.run(port=5210, debug=debug)
+    #app.run(port=5210, debug=debug)
+    app.run(host='0.0.0.0', port=5212, debug=debug)

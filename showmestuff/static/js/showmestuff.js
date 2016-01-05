@@ -51,6 +51,10 @@ var show = {
 		if (this.currentView != null) {
 			$("#content").html("");
 			this.currentView.active = false;
+			
+			if ("destroy" in this.currentView) {
+				this.currentView.destroy();
+			}
 		}
 		
 		if (!(index in this.views)) {
@@ -121,7 +125,7 @@ var show = {
 		$("#view_control_panel").show();
 		$("#content").animate({
 			"padding-top": $("#view_control_panel").height() + "px"
-		});
+		}, {queue: false});
 		
 		this.hidePanelTimeout = window.setTimeout(show.hidePanel, 2000);
 	},
@@ -129,7 +133,7 @@ var show = {
 	hidePanel: function() {
 		$("#content").animate({
 			"padding-top": "0px"
-		});
+		}, {queue: false});
 		$("#view_control_panel").fadeOut();
 		
 		if (show.currentView !== null && "hidePanel" in show.currentView) {

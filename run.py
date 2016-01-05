@@ -1,3 +1,3 @@
 from showmestuff import main
 
-main.run_app(debug=False)
+main.run_app(debug=True)

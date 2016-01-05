@@ -37,6 +37,9 @@
     	
     	// Prevent user from dragging anything
     	window.ondragstart = function() { return false; }
+    	
+    	var backgroundColor = "{{ config.BACKGROUND_COLOR }}";
+    	var textColor = "{{ config.TEXT_COLOR }}";
     </script>
 	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='js/jquery.timeago.js') }}"></script>
